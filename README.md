@@ -1,6 +1,7 @@
 # Apitools::Middleware
 
-TODO: Write a gem description
+Ruby Library for working with APItools Middleware. Validating, testing, ...
+
 
 ## Installation
 
@@ -18,11 +19,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+repository = Apitools::Middleware::LocalRepository.new
+repository.middleware.each do |middleware|
+  puts "Middleware #{middleware.name} is invalid" unless middleware.valid?
+end
+```
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/apitools-middleware/fork )
+1. Fork it ( https://github.com/APItools/apitools-middleware/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
