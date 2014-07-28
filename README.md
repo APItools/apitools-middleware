@@ -1,4 +1,4 @@
-# Apitools::Middleware
+# Apitools::Middleware [![Build Status](https://travis-ci.org/APItools/apitools-middleware.svg?branch=master)](https://travis-ci.org/APItools/apitools-middleware)
 
 Ruby Library for working with APItools Middleware. Validating, testing, ...
 
