@@ -1,4 +1,5 @@
 require 'pathname'
+require 'apitools/middleware/repository'
 
 module Apitools
   module Middleware
@@ -12,6 +13,8 @@ module Apitools
 
       def content(file)
         Pathname(file).read
+      rescue Errno::ENOENT
+        false
       end
 
       def middleware

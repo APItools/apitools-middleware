@@ -33,4 +33,12 @@ describe Apitools::Middleware::LocalRepository do
       expect(second.manifest).not_to be_valid
     end
   end
+
+  context 'third middleware' do
+    let(:third) { subject.middleware.last }
+
+    it 'is not valid' do
+      expect(third).not_to be_valid
+    end
+  end
 end

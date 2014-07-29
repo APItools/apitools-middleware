@@ -31,6 +31,7 @@ describe Apitools::Middleware::Spec do
 
     before do
       spec.manifest = manifest.to_json
+      expect(repo).to receive(:content).with(Pathname('some/middleware.lua')).and_return('code')
     end
 
     expect_it { to be_valid }
@@ -39,6 +40,15 @@ describe Apitools::Middleware::Spec do
   context 'with empty manifest' do
     before do
       spec.manifest = {}.to_json
+    end
+
+    expect_it { to_not be_valid }
+  end
+
+  context 'spec with invalid file' do
+    before do
+      spec.manifest = fixture('test')
+      expect(repo).to receive(:content)
     end
 
     expect_it { to_not be_valid }

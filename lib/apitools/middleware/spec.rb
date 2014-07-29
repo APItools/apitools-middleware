@@ -1,6 +1,7 @@
 require 'pathname'
 require 'semantic'
 require 'forwardable'
+require 'apitools/middleware/manifest'
 
 module Apitools
   module Middleware
@@ -35,6 +36,10 @@ module Apitools
         Array(endpoints).first
       end
 
+      def files
+        Array(manifest.files)
+      end
+
       def version
         Semantic::Version.new(manifest.version)
       rescue ArgumentError
@@ -43,21 +48,25 @@ module Apitools
 
       def valid?
         required_attributes = [name, path, author, endpoint, version, description]
-        required_attributes.all?
+        return unless required_attributes.all?
+
+        lua_files = Array(files).map { |file| content(file) }
+        lua_files.none?{ |file| !file || file.nil? || file.empty? }
       end
 
       protected
 
+      def content(path)
+        @repo.content @path.join(path)
+      end
+
       def load_manifest
-        @repo.content(@path.join(@manifest_path))
+        content @manifest_path
       end
 
       def load_code
-        file = files.first
-
-        @repo.content(@path.join(file))
+        content files.first
       end
-
     end
   end
 end
