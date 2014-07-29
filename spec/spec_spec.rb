@@ -5,16 +5,28 @@ describe Apitools::Middleware::Spec do
   subject(:spec) { described_class.new(repo, path.to_s) }
 
   it 'trims path to just folder' do
-    expect(spec.path).to eq(path.dirname.to_s)
+    expect(spec.path).to eq('some')
   end
 
   it 'remembers manifest from path' do
-    expect(spec.manifest_path).to eq(path.basename)
+    expect(spec.manifest_file).to eq('path.json')
   end
 
   it 'allows setting manifest as json' do
     spec.manifest = '{ "name": "manifest" }'
     expect(spec.manifest).to eq(name: 'manifest')
+  end
+
+  context 'path without manifest' do
+    let(:path) { Pathname('middleware/some-middleware') }
+
+    it 'uses default manifest name' do
+      expect(spec.manifest_file).to eq('apitools.json')
+    end
+
+    it 'uses path as a path' do
+      expect(spec.path).to eq('middleware/some-middleware')
+    end
   end
 
   context 'with valid manifest' do

@@ -6,18 +6,16 @@ require 'apitools/middleware/manifest'
 module Apitools
   module Middleware
     class Spec
-      MANIFEST_FILE = 'apitools.json' # should be apitools.json
+      MANIFEST_FILE = Pathname('apitools.json') # should be apitools.json
 
-      attr_reader :repo, :manifest_path
+      attr_reader :repo
 
       extend Forwardable
-      def_delegators :manifest, :name, :description, :author, :endpoints, :files
+      def_delegators :manifest, :name, :description, :author, :endpoints
 
       def initialize(repo, path)
         @repo = repo
-        pathname = Pathname(path)
-        @path = pathname.dirname
-        @manifest_path = pathname.basename || MANIFEST_FILE
+        @path, @manifest_file = extract_path_and_manifest(path)
       end
 
       def manifest=(json)
@@ -34,6 +32,10 @@ module Apitools
 
       def path
         @path.to_s
+      end
+
+      def manifest_file
+        @manifest_file.to_s
       end
 
       def endpoint
@@ -58,6 +60,16 @@ module Apitools
         lua_files.none?{ |file| !file || file.nil? || file.empty? }
       end
 
+      def extract_path_and_manifest(path)
+        pathname = Pathname(path)
+
+        if pathname.extname.empty? # no manifest at the end
+          [pathname, MANIFEST_FILE]
+        else
+          [pathname.dirname, pathname.basename]
+        end
+      end
+
       protected
 
       def content(path)
@@ -65,7 +77,7 @@ module Apitools
       end
 
       def load_manifest
-        content @manifest_path
+        content @manifest_file
       end
 
       def load_code
