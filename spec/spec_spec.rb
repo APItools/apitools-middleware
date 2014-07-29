@@ -5,7 +5,7 @@ describe Apitools::Middleware::Spec do
   subject(:spec) { described_class.new(repo, path.to_s) }
 
   it 'trims path to just folder' do
-    expect(spec.path).to eq(path.dirname)
+    expect(spec.path).to eq(path.dirname.to_s)
   end
 
   it 'remembers manifest from path' do

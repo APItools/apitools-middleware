@@ -8,7 +8,7 @@ module Apitools
     class Spec
       MANIFEST_FILE = 'apitools.json' # should be apitools.json
 
-      attr_reader :repo, :path, :manifest_path
+      attr_reader :repo, :manifest_path
 
       extend Forwardable
       def_delegators :manifest, :name, :description, :author, :endpoints, :files
@@ -30,6 +30,10 @@ module Apitools
 
       def code
         @code ||= load_code
+      end
+
+      def path
+        @path.to_s
       end
 
       def endpoint
