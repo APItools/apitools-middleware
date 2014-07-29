@@ -1,6 +1,7 @@
 # Apitools::Middleware [![Build Status](https://travis-ci.org/APItools/apitools-middleware.svg?branch=master)](https://travis-ci.org/APItools/apitools-middleware)
 
-Ruby Library for working with APItools Middleware. Validating, testing, ...
+Ruby Library for working with [APItools Middleware](https://github.com/APItools/middleware). Validating, testing, ...
+Collection of middleware can be found in https://github.com/APItools/middleware
 
 
 ## Installation
