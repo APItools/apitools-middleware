@@ -6,12 +6,10 @@ require 'apitools/middleware/manifest'
 module Apitools
   module Middleware
     class Spec
+      SPEC_ATTRIBUTES = %I[path code endpoint description name author  github_user version]
       MANIFEST_FILE = Pathname('apitools.json') # should be apitools.json
 
       attr_reader :repo
-
-      extend Forwardable
-      def_delegators :manifest, :name, :description, :author, :endpoints
 
       def initialize(repo, path)
         @repo = repo
@@ -44,6 +42,23 @@ module Apitools
 
       def files
         Array(manifest.files)
+      end
+
+      def method_missing(method, *)
+        hash = manifest.to_h
+
+        if hash && hash.has_key?(method)
+          hash.fetch(method)
+        end
+      end
+
+      def respond_to_missing?(method, *)
+        hash = manifest.to_h
+        hash && hash.has_key?(method) || super
+      end
+
+      def to_h
+        SPEC_ATTRIBUTES.map{|attr| [attr, public_send(attr)] }.to_h
       end
 
       def version

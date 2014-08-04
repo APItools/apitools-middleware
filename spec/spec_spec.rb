@@ -47,6 +47,15 @@ describe Apitools::Middleware::Spec do
     end
 
     expect_it { to be_valid }
+
+
+    context 'converted to a hash' do
+      subject(:hash) { spec.to_h }
+
+      it { expect(hash).to include(name: 'middleware') }
+      it { expect(hash).to include(author: '3scale') }
+      it { expect(hash).to include(endpoint: '*') }
+    end
   end
 
   context 'with empty manifest' do
