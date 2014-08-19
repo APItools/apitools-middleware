@@ -72,6 +72,7 @@ module Apitools
         return unless required_attributes.all?
 
         lua_files = Array(files).map { |file| content(file) }
+        return if lua_files.empty?
         lua_files.none?{ |file| !file || file.nil? || file.empty? }
       end
 

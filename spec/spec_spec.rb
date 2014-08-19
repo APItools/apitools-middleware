@@ -73,4 +73,22 @@ describe Apitools::Middleware::Spec do
 
     it { is_expected.to_not be_valid }
   end
+
+  context 'spec without files' do
+    let(:manifest) do
+      {
+          name: 'middleware',
+          author: '3scale',
+          description: 'some description',
+          version: '1.2.3-rc.2',
+          endpoints: ['*']
+      }
+    end
+
+    before do
+      spec.manifest = manifest.to_json
+    end
+
+    it { is_expected.to_not be_valid }
+  end
 end

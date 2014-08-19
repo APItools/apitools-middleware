@@ -1,3 +1,11 @@
 {
-    "name" : "cache middleware"
+    "name": "cache middleware",
+    "description": "cache middleware",
+    "files": ["cache.lua"],
+    "author" : "3scale",
+    "email" : "apitools@apitools.com",
+    "github-user" : "apitools",
+    "version" : "1.0.0",
+    "categories" : ["cache"],
+    "endpoints": ["*"]
 }
