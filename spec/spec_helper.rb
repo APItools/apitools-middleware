@@ -74,12 +74,4 @@ RSpec.configure do |config|
     # a real object. This is generally recommended.
     mocks.verify_partial_doubles = true
   end
-
-  config.alias_example_to :expect_it
-end
-
-RSpec::Core::MemoizedHelpers.module_eval do
-  alias to should
-  alias to_not should_not
-  alias expect_it should # keep rubymine happy
 end

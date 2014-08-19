@@ -11,11 +11,11 @@ describe Apitools::Middleware::LocalRepository do
     before do
       middleware.each {|m| expect(m).to receive(:valid?).and_return(true) }
     end
-    expect_it { to be_valid }
+    it { is_expected.to be_valid }
   end
 
   context 'some middleware is invalid' do
-    expect_it { to_not be_valid }
+    it { is_expected.to_not be_valid }
   end
 
   context 'first middleware' do

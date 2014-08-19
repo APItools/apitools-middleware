@@ -46,8 +46,7 @@ describe Apitools::Middleware::Spec do
       expect(repo).to receive(:content).with(Pathname('some/middleware.lua')).and_return('code')
     end
 
-    expect_it { to be_valid }
-
+    it { is_expected.to be_valid }
 
     context 'converted to a hash' do
       subject(:hash) { spec.to_h }
@@ -63,7 +62,7 @@ describe Apitools::Middleware::Spec do
       spec.manifest = {}.to_json
     end
 
-    expect_it { to_not be_valid }
+    it { is_expected.to_not be_valid }
   end
 
   context 'spec with invalid file' do
@@ -72,6 +71,6 @@ describe Apitools::Middleware::Spec do
       expect(repo).to receive(:content)
     end
 
-    expect_it { to_not be_valid }
+    it { is_expected.to_not be_valid }
   end
 end
